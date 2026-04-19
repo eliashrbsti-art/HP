@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naturheilpraxis Hochstadt — Gabriele Herbst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:        #0C0A07;
+      --ink-soft:   #1E1810;
+      --cream:      #F5EFE6;
+      --linen:      #EAE1D4;
+      --linen-dk:   #D4C9B8;
+      --stone:      #7A6B5A;
+      --stone-lt:   #B0A494;
+      --gold:       #C4A044;
+      --gold-dim:   #8B6E24;
+      --gold-pale:  #F2E8CF;
+      --fern:       #4A7259;
+      --fern-dim:   #325040;
+      --white:      #FFFFFF;
+
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'DM Sans', system-ui, sans-serif;
+      --ease:  cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── 3D SCROLL REVEALS ─────────────────── */
+    .r3d {
+      opacity: 0;
+      transform: perspective(1000px) rotateX(18deg) translateY(36px);
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    }
+    .r-left {
+      opacity: 0;
+      transform: perspective(900px) rotateY(-22deg) translateX(-50px);
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    }
+    .r-right {
+      opacity: 0;
+      transform: perspective(900px) rotateY(22deg) translateX(50px);
+      transition: opacity 0.85s var(--ease), transform 0.85s var(--ease);
+    }
+    .r-up {
+      opacity: 0;
+      transform: translateY(44px);
+      transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+    }
+    .r3d.in, .r-left.in, .r-right.in, .r-up.in {
+      opacity: 1;
+      transform: none;
+    }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.32s; }
+    .d4 { transition-delay: 0.46s; }
+
+    /* ── NAV ───────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      padding: 0.9rem 3.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(245,239,230,0.82);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid rgba(196,160,68,0.15);
+      box-shadow: 0 2px 32px -8px rgba(12,10,7,0.08);
+    }
+    .logo img { height: 54px; width: auto; }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem; font-weight: 400;
+      letter-spacing: 0.07em;
+      color: var(--stone);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px; background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s var(--ease);
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    .nav-btn {
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--cream);
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+      padding: 0.65rem 1.6rem;
+      border-radius: 100px;
+      box-shadow: 0 4px 16px rgba(196,160,68,0.35);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s;
+    }
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(196,160,68,0.45);
+    }
+    .nav-btn:active { transform: scale(0.97); }
+
+    /* ── INTRO (replaces hero) ─────────────── */
+    #intro {
+      min-height: 92dvh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      overflow: hidden;
+    }
+
+    .intro-left {
+      background: var(--ink);
+      padding: 6rem 4rem 5rem 5vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .intro-left::before {
+      content: '';
+      position: absolute;
+      top: -30%; left: -20%;
+      width: 80%; height: 80%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,160,68,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .intro-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+    .intro-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--gold);
+      animation: pulse-gold 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-gold {
+      0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(196,160,68,0.5); }
+      50%      { opacity:0.7; box-shadow: 0 0 0 6px rgba(196,160,68,0); }
+    }
+    .intro-tag span {
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); font-weight: 300;
+    }
+
+    .intro-h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 4.5vw, 5rem);
+      font-weight: 400; line-height: 1.1;
+      color: #fff;
+      margin-bottom: 1.8rem;
+    }
+    .intro-h1 em { font-style: italic; color: var(--gold); }
+
+    .intro-desc {
+      font-size: 1rem; font-weight: 300; line-height: 1.8;
+      color: rgba(255,255,255,0.5);
+      max-width: 46ch; margin-bottom: 2.8rem;
+    }
+
+    .intro-actions { display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap; }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+      color: var(--ink); font-family: var(--sans);
+      font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.9rem 2rem; border-radius: 0.3rem;
+      box-shadow: 0 8px 28px rgba(196,160,68,0.4);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s;
+    }
+    .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(196,160,68,0.55); }
+    .btn-gold:active { transform: scale(0.97); }
+    .btn-ghost {
+      font-size: 0.78rem; font-weight: 400;
+      letter-spacing: 0.07em; color: rgba(255,255,255,0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-bottom: 0.1rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+    .intro-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .intro-right img {
+      width: 100%; height: 100%;
+      object-position: top center;
+      transition: transform 8s ease-in-out;
+    }
+    #intro:hover .intro-right img { transform: scale(1.04); }
+    .intro-right::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right, var(--ink) 0%, transparent 20%);
+    }
+
+    /* Floating 3D badge */
+    .intro-badge {
+      position: absolute;
+      bottom: 2.5rem; right: 2.5rem; z-index: 2;
+      width: 120px; height: 120px;
+      background: rgba(196,160,68,0.12);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(196,160,68,0.3);
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      animation: float3d 5s ease-in-out infinite;
+    }
+    @keyframes float3d {
+      0%   { transform: perspective(600px) rotateX(0deg) rotateY(-4deg) translateY(0); }
+      33%  { transform: perspective(600px) rotateX(3deg) rotateY(4deg) translateY(-8px); }
+      66%  { transform: perspective(600px) rotateX(-2deg) rotateY(1deg) translateY(-5px); }
+      100% { transform: perspective(600px) rotateX(0deg) rotateY(-4deg) translateY(0); }
+    }
+    .intro-badge strong {
+      font-family: var(--serif); font-size: 2rem; font-weight: 400;
+      color: var(--gold); line-height: 1;
+    }
+    .intro-badge span {
+      font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-top: 0.2rem;
+    }
+
+    /* ── STATS ─────────────────────────────── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--ink-soft);
+      border-bottom: 1px solid rgba(196,160,68,0.12);
+    }
+    .stat {
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.05);
+      transform-style: preserve-3d;
+      transition: background 0.3s;
+    }
+    .stat:last-child { border-right: none; }
+    .stat:hover { background: rgba(196,160,68,0.06); }
+
+    .stat-num {
+      font-family: var(--serif); font-size: 2.8rem; font-weight: 400;
+      color: var(--gold); line-height: 1;
+      margin-bottom: 0.5rem;
+      display: block;
+      animation: flip-in 0.6s var(--ease) both;
+    }
+    @keyframes flip-in {
+      from { transform: perspective(400px) rotateX(90deg); opacity: 0; }
+      to   { transform: perspective(400px) rotateX(0deg);  opacity: 1; }
+    }
+    .stat-label {
+      font-size: 0.68rem; font-weight: 300;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── SHARED ────────────────────────────── */
+    .eyebrow {
+      font-size: 0.67rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.2vw, 3.4rem);
+      font-weight: 400; line-height: 1.2; color: var(--ink);
+    }
+    .h2 em { font-style: italic; color: var(--stone); }
+    .h2-light { color: #fff; }
+    .h2-light em { color: var(--gold); }
+
+    /* ── ABOUT ─────────────────────────────── */
+    #ueber {
+      padding: 9rem 5vw;
+      max-width: 1360px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 7rem; align-items: center;
+    }
+
+    .about-scene {
+      perspective: 1200px;
+      height: 640px;
+      position: relative;
+    }
+    .about-card-main {
+      position: absolute;
+      top: 0; left: 0; right: 10%;
+      height: 88%;
+      border-radius: 1rem;
+      overflow: hidden;
+      transform: perspective(1200px) rotateY(4deg) rotateX(2deg);
+      box-shadow: 24px 32px 64px rgba(12,10,7,0.18), 0 0 0 1px rgba(196,160,68,0.1);
+      transition: transform 0.6s var(--ease), box-shadow 0.6s;
+    }
+    .about-card-main:hover {
+      transform: perspective(1200px) rotateY(-2deg) rotateX(-1deg) translateZ(12px);
+      box-shadow: 32px 40px 80px rgba(12,10,7,0.22), 0 0 0 1px rgba(196,160,68,0.2);
+    }
+    .about-card-main img { object-position: top center; }
+
+    .about-card-float {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 52%; height: 52%;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 6px solid var(--cream);
+      transform: perspective(800px) rotateY(-6deg) rotateX(-3deg) translateZ(30px);
+      box-shadow: -16px 20px 48px rgba(12,10,7,0.15);
+      transition: transform 0.6s var(--ease);
+      animation: card-drift 7s ease-in-out infinite;
+    }
+    @keyframes card-drift {
+      0%,100% { transform: perspective(800px) rotateY(-6deg) rotateX(-3deg) translateZ(30px) translateY(0); }
+      50%      { transform: perspective(800px) rotateY(-4deg) rotateX(-1deg) translateZ(36px) translateY(-6px); }
+    }
+    .about-card-float img { object-position: top center; }
+
+    .about-orb {
+      position: absolute;
+      top: 3rem; right: -1rem;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      box-shadow: 0 12px 36px rgba(196,160,68,0.5);
+      animation: orb-spin 8s ease-in-out infinite;
+      z-index: 2;
+    }
+    @keyframes orb-spin {
+      0%,100% { transform: perspective(400px) rotateY(0deg) translateY(0); }
+      50%      { transform: perspective(400px) rotateY(8deg) translateY(-6px); }
+    }
+    .about-orb strong {
+      font-family: var(--serif); font-size: 1.8rem; font-weight: 400;
+      color: var(--ink); line-height: 1;
+    }
+    .about-orb span {
+      font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(12,10,7,0.6); margin-top: 0.2rem;
+    }
+
+    .about-text .eyebrow { margin-bottom: 1rem; }
+    .about-text .h2 { margin-bottom: 1.8rem; }
+    .about-body {
+      font-size: 1rem; font-weight: 300; line-height: 1.85;
+      color: var(--stone); margin-bottom: 1.2rem;
+    }
+    .about-creds {
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--linen-dk);
+    }
+    .cred-item {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 0.9rem 0; border-bottom: 1px solid var(--linen-dk);
+      gap: 1rem;
+      transition: background 0.2s;
+    }
+    .cred-item:hover { padding-left: 0.5rem; }
+    .cred-item span:first-child { font-size: 0.88rem; font-weight: 400; color: var(--ink-soft); }
+    .cred-item span:last-child  { font-size: 0.75rem; font-weight: 300; color: var(--stone-lt); white-space: nowrap; }
+
+    /* ── SERVICES ──────────────────────────── */
+    #leistungen {
+      background: var(--ink);
+      padding: 9rem 5vw;
+      position: relative; overflow: hidden;
+    }
+    #leistungen::before {
+      content: '';
+      position: absolute; bottom: -20%; right: -10%;
+      width: 50vw; height: 50vw; border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,160,68,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .leistungen-inner { max-width: 1360px; margin: 0 auto; }
+
+    .leistungen-top {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: end;
+      margin-bottom: 5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(196,160,68,0.12);
+    }
+    .leistungen-top p {
+      font-size: 0.95rem; font-weight: 300; line-height: 1.8;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* 3D Service Cards Grid */
+    .srv-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .srv-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(196,160,68,0.1);
+      border-radius: 1rem;
+      padding: 2.4rem;
+      transform-style: preserve-3d;
+      transition: transform 0.4s var(--ease), background 0.3s, border-color 0.3s, box-shadow 0.4s;
+      cursor: default;
+      position: relative; overflow: hidden;
+    }
+    .srv-card::before {
+      content: '';
+      position: absolute; inset: 0; border-radius: 1rem;
+      background: linear-gradient(135deg, rgba(196,160,68,0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .srv-card:hover {
+      background: rgba(196,160,68,0.06);
+      border-color: rgba(196,160,68,0.3);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(196,160,68,0.2);
+    }
+    .srv-card:hover::before { opacity: 1; }
+
+    .srv-num {
+      font-family: var(--serif); font-size: 0.9rem; font-style: italic;
+      color: rgba(196,160,68,0.3); margin-bottom: 1.4rem;
+    }
+    .srv-icon {
+      width: 40px; height: 40px; margin-bottom: 1.4rem;
+      color: var(--gold); opacity: 0.8;
+    }
+    .srv-title {
+      font-family: var(--serif); font-size: 1.3rem; font-weight: 400;
+      color: #fff; margin-bottom: 0.75rem; line-height: 1.25;
+    }
+    .srv-desc {
+      font-size: 0.84rem; font-weight: 300; line-height: 1.7;
+      color: rgba(255,255,255,0.38); max-width: 36ch;
+    }
+    .srv-tag {
+      display: inline-block;
+      margin-top: 1.4rem;
+      font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(196,160,68,0.1);
+      padding: 0.3rem 0.8rem; border-radius: 100px;
+    }
+
+    /* ── PHILOSOPHY ────────────────────────── */
+    #philosophie {
+      padding: 10rem 5vw;
+      max-width: 1360px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 2.2fr;
+      gap: 6rem; align-items: start;
+    }
+    .phil-meta {
+      padding-top: 0.5rem;
+    }
+    .phil-meta-label {
+      font-size: 0.67rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--stone-lt); font-weight: 300; margin-bottom: 1.2rem;
+    }
+    .phil-line { width: 28px; height: 2px; background: var(--gold); margin-bottom: 1.5rem; }
+    .phil-meta-text {
+      font-size: 0.88rem; font-weight: 300; line-height: 1.8; color: var(--stone);
+    }
+
+    .phil-quote-wrap {
+      perspective: 1000px;
+    }
+    .phil-quote {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 2.8vw, 3rem);
+      font-weight: 400; font-style: italic;
+      color: var(--ink); line-height: 1.45;
+      position: relative; padding-left: 2.5rem;
+      transform: perspective(1000px) rotateX(0deg);
+      transition: transform 0.6s var(--ease);
+    }
+    .phil-quote:hover { transform: perspective(1000px) rotateX(-2deg) translateZ(8px); }
+    .phil-quote::before {
+      content: '\201C';
+      position: absolute; left: 0; top: -0.6rem;
+      font-size: 6rem; font-family: var(--serif);
+      color: var(--gold-pale); line-height: 1;
+    }
+    .phil-quote cite {
+      display: block; font-style: normal;
+      font-family: var(--sans); font-size: 0.75rem; font-weight: 300;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--stone-lt); margin-top: 2.2rem;
+    }
+
+    /* ── PROCESS ───────────────────────────── */
+    #ablauf {
+      background: var(--linen);
+      border-top: 1px solid var(--linen-dk);
+      border-bottom: 1px solid var(--linen-dk);
+      padding: 9rem 5vw;
+    }
+    .ablauf-inner { max-width: 1360px; margin: 0 auto; }
+    .ablauf-top {
+      display: flex; justify-content: space-between; align-items: end;
+      margin-bottom: 5rem; gap: 3rem;
+    }
+    .ablauf-top p {
+      font-size: 0.95rem; font-weight: 300; line-height: 1.8;
+      color: var(--stone); max-width: 44ch;
+    }
+
+    .steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .step {
+      padding: 2.5rem 2.5rem 2.5rem 0;
+      border-right: 1px solid var(--linen-dk);
+      transform-style: preserve-3d;
+      transition: transform 0.4s var(--ease);
+    }
+    .step:first-child { padding-left: 0; }
+    .step:last-child { border-right: none; padding-right: 0; }
+    .step + .step { padding-left: 2.5rem; }
+    .step:hover { transform: perspective(600px) rotateX(-4deg) translateZ(6px); }
+
+    .step-n {
+      font-family: var(--serif); font-size: 4.5rem; font-weight: 400;
+      font-style: italic; color: var(--linen-dk); line-height: 1; margin-bottom: 1.5rem;
+    }
+    .step-t { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.65rem; }
+    .step-d { font-size: 0.84rem; font-weight: 300; line-height: 1.72; color: var(--stone); }
+
+    /* ── TESTIMONIALS ──────────────────────── */
+    #stimmen {
+      padding: 9rem 5vw;
+      max-width: 1360px; margin: 0 auto;
+    }
+    .stimmen-top {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; margin-bottom: 5rem;
+    }
+    .stimmen-top p {
+      font-size: 0.95rem; font-weight: 300; line-height: 1.8;
+      color: var(--stone); max-width: 44ch; align-self: end;
+    }
+
+    .stimmen-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 1.5rem;
+    }
+    .stimme {
+      background: var(--linen);
+      border: 1px solid var(--linen-dk);
+      border-radius: 1rem; padding: 2.8rem;
+      transform-style: preserve-3d;
+      transition: transform 0.45s var(--ease), box-shadow 0.45s;
+    }
+    .stimme:hover {
+      transform: perspective(800px) rotateX(-4deg) rotateY(3deg) translateZ(12px);
+      box-shadow: 0 24px 56px rgba(12,10,7,0.1);
+    }
+    .stimme.dark {
+      background: var(--ink-soft);
+      border-color: rgba(196,160,68,0.15);
+    }
+    .stimme.dark:hover {
+      box-shadow: 0 24px 56px rgba(12,10,7,0.4), 0 0 0 1px rgba(196,160,68,0.2);
+    }
+    .stimme.dark .stimme-text { color: rgba(255,255,255,0.7); }
+    .stimme.dark .stimme-name { color: #fff; }
+    .stimme.dark .stimme-meta { color: rgba(255,255,255,0.3); }
+
+    .stars { display: flex; gap: 0.2rem; margin-bottom: 1.5rem; }
+    .stars svg { width: 11px; height: 11px; color: var(--gold); fill: currentColor; }
+
+    .stimme-text {
+      font-family: var(--serif); font-size: 1rem; font-weight: 400;
+      font-style: italic; line-height: 1.65; color: var(--ink-soft); margin-bottom: 1.8rem;
+    }
+    .stimme-name { font-size: 0.85rem; font-weight: 500; color: var(--ink); }
+    .stimme-meta { font-size: 0.75rem; font-weight: 300; color: var(--stone-lt); margin-top: 0.15rem; }
+
+    .stimmen-right { display: flex; flex-direction: column; gap: 1.5rem; }
+    .stimme-sm { padding: 2rem; }
+    .stimme-sm .stimme-text { font-size: 0.9rem; }
+
+    /* ── CONTACT ───────────────────────────── */
+    #kontakt {
+      background: var(--ink);
+      padding: 9rem 5vw;
+      position: relative; overflow: hidden;
+    }
+    #kontakt::after {
+      content: '';
+      position: absolute; top: -40%; left: -20%;
+      width: 60vw; height: 60vw; border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,160,68,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .kontakt-inner {
+      position: relative; z-index: 1;
+      max-width: 1360px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+    }
+
+    .kontakt-info .eyebrow { margin-bottom: 1.2rem; }
+    .kontakt-info .h2 { margin-bottom: 1.5rem; }
+    .kontakt-info > p {
+      font-size: 0.95rem; font-weight: 300; line-height: 1.8;
+      color: rgba(255,255,255,0.4); margin-bottom: 3rem;
+    }
+
+    .info-dl { border-top: 1px solid rgba(255,255,255,0.07); }
+    .info-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.1rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .info-row dt {
+      font-size: 0.67rem; font-weight: 300; letter-spacing: 0.15em;
+      text-transform: uppercase; color: rgba(255,255,255,0.25);
+    }
+    .info-row dd { font-size: 0.88rem; font-weight: 300; color: rgba(255,255,255,0.6); }
+
+    /* 3D Form Card */
+    .form-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(196,160,68,0.12);
+      border-radius: 1.25rem;
+      padding: 2.5rem;
+      transform-style: preserve-3d;
+      transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
+      transition: transform 0.5s var(--ease), box-shadow 0.5s;
+      box-shadow: 24px 24px 60px rgba(0,0,0,0.35);
+    }
+    .form-card:hover {
+      transform: perspective(1200px) rotateY(1deg) rotateX(-1deg) translateZ(10px);
+      box-shadow: 32px 32px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(196,160,68,0.2);
+    }
+
+    .form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .field label {
+      font-size: 0.63rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.28);
+    }
+    .field input, .field textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 0.4rem;
+      padding: 0.85rem 1rem;
+      font-family: var(--sans); font-size: 0.88rem; font-weight: 300;
+      color: #fff; outline: none;
+      transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.15); }
+    .field input:focus, .field textarea:focus {
+      border-color: var(--gold);
+      background: rgba(196,160,68,0.06);
+      box-shadow: 0 0 0 3px rgba(196,160,68,0.12);
+    }
+    .field textarea { resize: vertical; min-height: 100px; }
+
+    .form-btn {
+      margin-top: 0.4rem;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+      color: var(--ink); border: none;
+      border-radius: 0.4rem; padding: 1rem 2rem;
+      font-family: var(--sans); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+      box-shadow: 0 8px 28px rgba(196,160,68,0.35);
+      transition: transform 0.2s var(--ease), box-shadow 0.2s;
+    }
+    .form-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(196,160,68,0.5); }
+    .form-btn:active { transform: scale(0.97); }
+
+    /* ── FOOTER ────────────────────────────── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 2rem 5vw;
+    }
+    .footer-inner {
+      max-width: 1360px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-copy { font-size: 0.72rem; font-weight: 300; color: rgba(255,255,255,0.2); }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { font-size: 0.72rem; font-weight: 300; color: rgba(255,255,255,0.22); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ── RESPONSIVE ────────────────────────── */
+    @media (max-width: 1024px) {
+      .srv-grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .step { border-right: none; border-bottom: 1px solid var(--linen-dk); padding: 0 0 2rem; }
+      .step:last-child { border-bottom: none; padding-bottom: 0; }
+      .step + .step { padding-left: 0; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #intro { grid-template-columns: 1fr; }
+      .intro-right { height: 50vw; }
+      .intro-left { padding: 4rem 1.5rem 3rem; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      #ueber { grid-template-columns: 1fr; padding: 5rem 1.5rem; gap: 2.5rem; }
+      .about-scene { height: 400px; }
+      .about-orb { right: 0; transform: none; }
+      #leistungen, #ablauf, #stimmen, #kontakt { padding: 5rem 1.5rem; }
+      .srv-grid { grid-template-columns: 1fr; }
+      .leistungen-top { grid-template-columns: 1fr; }
+      #philosophie { grid-template-columns: 1fr; padding: 5rem 1.5rem; gap: 2rem; }
+      .phil-meta { display: none; }
+      .ablauf-top { flex-direction: column; }
+      .steps { grid-template-columns: 1fr; }
+      .stimmen-top { grid-template-columns: 1fr; }
+      .stimmen-grid { grid-template-columns: 1fr; }
+      .kontakt-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-card { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <img src="logo1.jpeg" alt="Naturheilpraxis Hochstadt — Gabriele Herbst" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="#ueber">Über mich</a></li>
+      <li><a href="#leistungen">Leistungen</a></li>
+      <li><a href="#ablauf">Ablauf</a></li>
+      <li><a href="#stimmen">Stimmen</a></li>
+    </ul>
+    <a href="#kontakt" class="nav-btn">Termin anfragen</a>
+  </nav>
+
+  <!-- INTRO -->
+  <section id="intro">
+    <div class="intro-left">
+      <div class="intro-tag r-up">
+        <div class="intro-dot"></div>
+        <span>Naturheilkunde &amp; Ganzheitliche Therapie · Hochstadt</span>
+      </div>
+      <h1 class="intro-h1 r3d d1">
+        Heilung, die bei <em>Ihnen</em> beginnt.
+      </h1>
+      <p class="intro-desc r3d d2">
+        Ich verbinde bewährte Naturheilverfahren mit moderner Diagnostik
+        und nehme mir die Zeit, die Sie verdienen — für Behandlungen,
+        die an der Wurzel ansetzen.
+      </p>
+      <div class="intro-actions r-up d3">
+        <a href="#kontakt" class="btn-gold">
+          Erstgespräch anfragen
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a href="#leistungen" class="btn-ghost">Leistungen ansehen</a>
+      </div>
+    </div>
+    <div class="intro-right">
+      <img src="gabi2.jpeg" alt="Gabriele Herbst — Naturheilpraktikerin" />
+      <div class="intro-badge">
+        <strong>18+</strong>
+        <span>Jahre<br>Erfahrung</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat r3d">
+      <span class="stat-num">18+</span>
+      <span class="stat-label">Jahre Erfahrung</span>
+    </div>
+    <div class="stat r3d d1">
+      <span class="stat-num">1.400+</span>
+      <span class="stat-label">Betreute Patienten</span>
+    </div>
+    <div class="stat r3d d2">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Therapiebereiche</span>
+    </div>
+    <div class="stat r3d d3">
+      <span class="stat-num">4,9</span>
+      <span class="stat-label">Bewertungen</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="ueber">
+    <div class="about-scene r-left">
+      <div class="about-card-main">
+        <img src="gabi1.jpeg" alt="Gabriele Herbst — Naturheilpraktikerin" />
+      </div>
+      <div class="about-card-float">
+        <img src="gabi2.jpeg" alt="Gabriele Herbst in der Praxis" />
+      </div>
+      <div class="about-orb">
+        <strong>18+</strong>
+        <span>Jahre</span>
+      </div>
+    </div>
+
+    <div class="about-text">
+      <p class="eyebrow r-up">Über mich</p>
+      <h2 class="h2 r3d d1">Ganzheitlich denken, <em>individuell</em> behandeln.</h2>
+      <p class="about-body r-up d2">
+        Mein Name ist Gabriele Herbst — ich bin Naturheilpraktikerin und habe die
+        Naturheilpraxis Hochstadt mit einem klaren Ziel gegründet: Menschen nicht
+        nur zu behandeln, sondern wirklich zu verstehen. Mein erstes Gespräch dauert
+        mindestens 90 Minuten — weil Ihre Geschichte die Grundlage jeder guten
+        Therapie ist.
+      </p>
+      <p class="about-body r-up d3">
+        Ich verbinde fundierte Heilpraktiker-Ausbildung mit Weiterbildungen in
+        Traditioneller Chinesischer Medizin, Osteopathie und Funktioneller Medizin.
+        Bei Bedarf arbeite ich eng mit Fachärzten zusammen.
+      </p>
+      <dl class="about-creds r-up d4">
+        <div class="cred-item"><span>Heilpraktiker-Zulassung</span><span>seit 2006</span></div>
+        <div class="cred-item"><span>Zertifikat Traditionelle Chinesische Medizin</span><span>Nanjing, 2009</span></div>
+        <div class="cred-item"><span>Weiterbildung Osteopathie</span><span>DO — IAO, 2014</span></div>
+        <div class="cred-item"><span>Mitglied Fachverband Heilpraktiker</span><span>VDH e.V.</span></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <div id="leistungen">
+    <div class="leistungen-inner">
+      <div class="leistungen-top">
+        <div>
+          <p class="eyebrow r-up">Leistungen</p>
+          <h2 class="h2 h2-light r3d d1">Was ich für <em>Sie</em> tun kann.</h2>
+        </div>
+        <p class="r-up d2">
+          Jedes Verfahren wird individuell abgestimmt.
+          Ich kombiniere gezielt die Methoden, die für Ihren
+          konkreten Fall am wirkungsvollsten sind.
+        </p>
+      </div>
+
+      <div class="srv-grid">
+        <div class="srv-card r3d">
+          <div class="srv-num">01</div>
+          <svg class="srv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/>
+          </svg>
+          <h3 class="srv-title">Akupunktur &amp; TCM</h3>
+          <p class="srv-desc">Feinste Nadeln aktivieren die körpereigenen Selbstheilungskräfte. Bewährt bei Schmerzen, Stress und funktionellen Beschwerden.</p>
+          <span class="srv-tag">Schmerz &amp; Stress</span>
+        </div>
+
+        <div class="srv-card r3d d1">
+          <div class="srv-num">02</div>
+          <svg class="srv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12s1.5-2 4-2 4 2 4 2"/>
+          </svg>
+          <h3 class="srv-title">Phytotherapie</h3>
+          <p class="srv-desc">Individuelle Kräuterrezepturen — abgestimmt auf Ihren Organismus, saisonal angepasst und wissenschaftlich fundiert.</p>
+          <span class="srv-tag">Heilpflanzen</span>
+        </div>
+
+        <div class="srv-card r3d d2">
+          <div class="srv-num">03</div>
+          <svg class="srv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10z"/><circle cx="12" cy="12" r="4"/>
+          </svg>
+          <h3 class="srv-title">Homöopathie</h3>
+          <p class="srv-desc">Konstitutionelle Homöopathie nach klassischer Lehre — für Säuglinge, Kinder und Erwachsene gleichermaßen geeignet.</p>
+          <span class="srv-tag">Alle Altersgruppen</span>
+        </div>
+
+        <div class="srv-card r3d d1">
+          <div class="srv-num">04</div>
+          <svg class="srv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M3 6h18M3 12h18M3 18h18"/>
+          </svg>
+          <h3 class="srv-title">Ernährungsmedizin</h3>
+          <p class="srv-desc">Essen als Medizin: Ich analysiere Ihre Ernährungsgewohnheiten und erarbeite mit Ihnen einen nachhaltigen Plan.</p>
+          <span class="srv-tag">Prävention</span>
+        </div>
+
+        <div class="srv-card r3d d2">
+          <div class="srv-num">05</div>
+          <svg class="srv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M12 2C8 2 5 5 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-4-3-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <h3 class="srv-title">Osteopathie</h3>
+          <p class="srv-desc">Manuelle Techniken lösen Blockaden im Bewegungsapparat und fördern die körpereigene Balance — sanft und präzise.</p>
+          <span class="srv-tag">Bewegung &amp; Balance</span>
+        </div>
+
+        <div class="srv-card r3d d3">
+          <div class="srv-num">06</div>
+          <svg class="srv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z"/>
+          </svg>
+          <h3 class="srv-title">Schüssler-Salze</h3>
+          <p class="srv-desc">Mineralsalze nach Dr. Schüssler unterstützen den Organismus auf zellulärer Ebene — sanft regulierend und ausgleichend.</p>
+          <span class="srv-tag">Mineralien &amp; Regulation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophie">
+    <div class="phil-meta r-left">
+      <p class="phil-meta-label">Meine Philosophie</p>
+      <div class="phil-line"></div>
+      <p class="phil-meta-text">
+        Seit über 18 Jahren begleite ich Menschen auf ihrem
+        Weg zur Gesundheit — mit Geduld, Empathie und einem
+        tiefen Verständnis für das Zusammenspiel von Körper,
+        Geist und Umfeld.
+      </p>
+    </div>
+    <div class="phil-quote-wrap r3d d1">
+      <blockquote class="phil-quote">
+        Der Körper hat eine unglaubliche Fähigkeit zur
+        Selbstheilung — meine Aufgabe ist es, diese Kraft
+        zu wecken, nicht zu ersetzen.
+        <cite>— Gabriele Herbst, Naturheilpraktikerin</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <div id="ablauf">
+    <div class="ablauf-inner">
+      <div class="ablauf-top">
+        <div>
+          <p class="eyebrow r-up">Mein Ablauf</p>
+          <h2 class="h2 r3d d1">So läuft eine Behandlung ab.</h2>
+        </div>
+        <p class="r-up d2">
+          Von Ihrem ersten Anruf bis zur abschließenden Verlaufskontrolle
+          begleite ich Sie strukturiert und aufmerksam — kein Schritt wird übersprungen.
+        </p>
+      </div>
+      <div class="steps">
+        <div class="step r3d">
+          <div class="step-n">01</div>
+          <div class="step-t">Erstgespräch</div>
+          <div class="step-d">90 Minuten ausführliche Anamnese. Ich höre zu, ohne zu unterbrechen — Ihre Geschichte ist der Beginn jeder Therapie.</div>
+        </div>
+        <div class="step r3d d1">
+          <div class="step-n">02</div>
+          <div class="step-t">Diagnostik</div>
+          <div class="step-d">Körperliche Untersuchung, Labordiagnostik und naturheilkundliche Verfahren ergeben ein vollständiges Bild.</div>
+        </div>
+        <div class="step r3d d2">
+          <div class="step-n">03</div>
+          <div class="step-t">Therapieplan</div>
+          <div class="step-d">Kein Standard-Protokoll. Ich kombiniere gezielt die Methoden, die für Ihren konkreten Fall passen.</div>
+        </div>
+        <div class="step r3d d3">
+          <div class="step-n">04</div>
+          <div class="step-t">Begleitung</div>
+          <div class="step-d">Regelmäßige Verlaufsgespräche, Anpassung des Plans — und Unterstützung auch zwischen den Terminen.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <section id="stimmen">
+    <div class="stimmen-top">
+      <div>
+        <p class="eyebrow r-up">Patientenstimmen</p>
+        <h2 class="h2 r3d d1">Was Menschen über mich sagen.</h2>
+      </div>
+      <p class="r-up d2">Echte Erfahrungen von Patientinnen und Patienten, die ich auf ihrem Weg begleiten durfte.</p>
+    </div>
+
+    <div class="stimmen-grid">
+      <div class="stimme dark r-left">
+        <div class="stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="stimme-text">
+          "Was mich am meisten beeindruckt hat: Hier nimmt man sich wirklich Zeit.
+          Das Erstgespräch dauerte fast zwei Stunden. Zum ersten Mal fühlte ich mich
+          nicht wie eine Diagnose, sondern wie ein Mensch."
+        </p>
+        <div class="stimme-name">T. Braunschweig</div>
+        <div class="stimme-meta">Patient seit 2019</div>
+      </div>
+
+      <div class="stimmen-right">
+        <div class="stimme stimme-sm r-right">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="stimme-text">
+            "Nach drei Jahren chronischer Rückenschmerzen habe ich hier endlich Linderung
+            gefunden. Akupunktur und Osteopathie haben mein Leben verändert."
+          </p>
+          <div class="stimme-name">M. Schreiber</div>
+          <div class="stimme-meta">Patientin seit 2021</div>
+        </div>
+        <div class="stimme stimme-sm r-right d1">
+          <div class="stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="stimme-text">
+            "Meine Tochter wird seit ihrem 4. Lebensjahr homöopathisch begleitet.
+            Seitdem brauchen wir kaum noch Antibiotika."
+          </p>
+          <div class="stimme-name">K. Feldmann</div>
+          <div class="stimme-meta">Patientin seit 2017</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div id="kontakt">
+    <div class="kontakt-inner">
+      <div class="kontakt-info r-left">
+        <p class="eyebrow">Kontakt</p>
+        <h2 class="h2 h2-light">Bereit für den ersten Schritt?</h2>
+        <p>Schreiben Sie mir — ich melde mich innerhalb von 24 Stunden. Das Erstgespräch ist unverbindlich und dauert in der Regel 90 Minuten.</p>
+        <dl class="info-dl">
+          <div class="info-row"><dt>Adresse</dt><dd>Hochstadt</dd></div>
+          <div class="info-row"><dt>E-Mail</dt><dd>praxis@naturheilpraxis-hochstadt.de</dd></div>
+          <div class="info-row"><dt>Sprechzeiten</dt><dd>Mo – Fr, 8:00 – 18:00 Uhr</dd></div>
+          <div class="info-row"><dt>Erstgespräch</dt><dd>90 Minuten · unverbindlich</dd></div>
+        </dl>
+      </div>
+
+      <div class="form-card r-right">
+        <form class="form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="field">
+              <label for="vn">Vorname</label>
+              <input type="text" id="vn" placeholder="Maria" required />
+            </div>
+            <div class="field">
+              <label for="nn">Nachname</label>
+              <input type="text" id="nn" placeholder="Müller" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="em">E-Mail</label>
+            <input type="email" id="em" placeholder="maria.mueller@beispiel.de" required />
+          </div>
+          <div class="field">
+            <label for="tel">Telefon (optional)</label>
+            <input type="tel" id="tel" placeholder="+49 ..." />
+          </div>
+          <div class="field">
+            <label for="msg">Ihr Anliegen</label>
+            <textarea id="msg" placeholder="Beschreiben Sie kurz, womit ich Ihnen helfen kann…" required></textarea>
+          </div>
+          <button type="submit" class="form-btn">
+            Nachricht senden
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-copy">&copy; 2026 Naturheilpraxis Hochstadt · Gabriele Herbst</p>
+      <ul class="footer-links">
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const io = new IntersectionObserver(
+      es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+      { threshold: 0.08, rootMargin: '0px 0px -20px 0px' }
+    );
+    document.querySelectorAll('.r3d, .r-left, .r-right, .r-up').forEach(el => io.observe(el));
+
+    // 3D mouse tilt on service cards
+    document.querySelectorAll('.srv-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - 0.5;
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        card.style.transform = `perspective(700px) rotateX(${-y * 12}deg) rotateY(${x * 14}deg) translateZ(8px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+
+    // 3D tilt on testimonial cards
+    document.querySelectorAll('.stimme').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width  - 0.5;
+        const y = (e.clientY - r.top)  / r.height - 0.5;
+        card.style.transform = `perspective(800px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg) translateZ(12px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+
+    // Form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.form-btn');
+      btn.textContent = 'Gesendet — ich melde mich bald!';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = 'Nachricht senden <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
+        btn.disabled = false;
+        e.target.reset();
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
